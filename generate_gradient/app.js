@@ -50,7 +50,7 @@ function generateGredient(num) {
 
     const btn = document.createElement("button");
     btn.setAttribute("class", "copy-btn");
-    btn.innerText = "CSS";
+    btn.innerText = "Copy";
     btn.setAttribute("onclick", `onCopy(${gradientProperty})`);
 
     card.appendChild(btn);
