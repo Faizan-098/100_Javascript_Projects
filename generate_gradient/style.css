@@ -1,0 +1,164 @@
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f5f7fb;
+  color: #1f2937;
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 30px;
+  padding: 5px;
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+}
+
+.logo h1 {
+  font-weight: 700;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.input-field,
+.select-field {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.input-field:focus,
+.select-field:focus {
+  border-color: #4f46e5;
+}
+
+.generate-btn {
+  padding: 12px 28px;
+  border-radius: 7px;
+  border: none;
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.generate-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ===== Gradient Section ===== */
+.gradient-section {
+  padding: 40px;
+}
+
+/* Grid */
+.gradient-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* Card */
+.gradient-card {
+  background: linear-gradient(297deg,#6e0f64,#c27c39);
+  height: 180px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+  padding: 12px;
+}
+.gradient-card:hover {
+  transform: translateY(-4px);
+}
+
+.copy-btn {
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  background: linear-gradient(135deg, #222, #555);
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-weight: 500;
+  opacity: 0.9;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 3px 12px rgba(192, 192, 192, 0.2);
+}
+
+.copy-btn:hover {
+  background: linear-gradient(135deg, #555, #222);
+  color: #eef2ff;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    
+  .logo h1{
+    font-size: 30px;
+  }
+  
+  .header {
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+  
+  .controls {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  
+  }
+  .input-field,
+.select-field,
+.generate-btn {
+    flex: 1;
+}
+  
+  .gradient-section {
+    padding: 20px;
+    
+  }
+}
+

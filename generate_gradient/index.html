@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gradify Studio</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">🎨</div>
+        <h1>Gradify Studio</h1>
+      </div>
+
+      <div class="controls">
+        <input
+          id="gradientLength"
+          type="number"
+          placeholder="Gradient Length"
+          class="input-field"
+        />
+
+        <select id="gradientType" class="select-field">
+          <option value="linear">Linear</option>
+          <option value="radial">Radial</option>
+          <option value="conic">Conic</option>
+        </select>
+
+        <button id="generateBtn" class="generate-btn">Generate</button>
+      </div>
+    </header>
+
+    <!-- Gradient Display Section -->
+    <main class="gradient-section">
+      <div class="gradient-grid">
+        <!-- Example Card -->
+        <div class="gradient-card">
+          <button id="copyBtn" class="copy-btn">CSS</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
