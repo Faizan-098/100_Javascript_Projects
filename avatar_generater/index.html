@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="./app.js"></script>
+  </head>
+  <body
+    class="min-h-screen flex items-center justify-center bg-[linear-gradient(210deg,#a31c4c,#d4c348)]"
+  >
+    <!-- Avatar-Container -->
+    <div
+      class="rounded-xl text-white p-7 max-w-md bg-black/40 min-h-[400px] backdrop-blur-md shadow shadow-lg"
+    >
+      <!-- Avatar -->
+      <div
+        class="flex items-center justify-center border-5 border-[#a31c4c]/80 bg-white shadow shadow shadow-xl rounded-full overflow-hidden w-32 h-32 mx-auto"
+      >
+        <img
+          class="object-cover w-full "
+          id="avatar"
+          src="data:image/jpeg;base64,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"
+          alt="avatar"
+        />
+      </div>
+
+      <!-- Avatar-Content -->
+      <div class="space-y-4">
+        <!-- Avatar-Info -->
+        <div class="text-center space-y-1">
+          <h2 class="text-2xl font-bold tracking-wide">Avatar Generator</h2>
+          <p class="text-white/80 text-md">
+            Generate Male, Female, Cartoon, or Realistic avatars.
+          </p>
+        </div>
+
+        <!-- Avarat-Type -->
+        <select
+          class="w-full border border-white rounded-md p-2 outline-none bg-black/50"
+          id="avatarType"
+        ></select>
+
+        <!-- Avatar-Url -->
+        <div
+          id="avatarUrl"
+          class="rounded-md p-1 py-2 text-sm bg-black/50 w-full overflow-hidden"
+        >
+          image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD
+        </div>
+
+        <!-- Avatar-Actions -->
+        <div class="flex items-center justify-center gap-4">
+          <button
+            class="flex-1 hover:scale-105 hover:transition-transform cursor-pointer rounded-md bg-black/60 shadow shadow-lg py-2"
+            id="changeAvatar"
+          >
+            Change
+          </button>
+          <button
+            class="flex-1 hover:scale-105 hover:transition-transform cursor-pointer rounded-md bg-black/60 shadow shadow-lg py-2"
+            id="downloadAvatar"
+          >
+            Download
+          </button>
+          <button
+            class="flex-1 hover:scale-105 hover:transition-transform cursor-pointer rounded-md bg-black/60 shadow shadow-lg py-2"
+            id="copyAvatar"
+          >
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
