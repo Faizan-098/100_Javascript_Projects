@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Gallery</title>
+    <script defer src="./app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+      integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/nprogress/nprogress.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/nprogress/nprogress.js"></script>
+
+    <style>
+      /* Gradient Progress Bar */
+      #nprogress .bar {
+        background: linear-gradient(90deg, #7c3aed, #a855f7);
+        height: 4px;
+      }
+
+      /* Glow Effect */
+      #nprogress .peg {
+        box-shadow:
+          0 0 10px #207347,
+          0 0 5px #1e2032;
+      }
+
+      /* Optional: remove default spinner */
+      #nprogress .spinner {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main Wrapper -->
+    <div
+      id="app"
+      class="min-h-screen p-4 md:p-10 flex flex-col gap-10 md:gap-16 bg-[linear-gradient(145deg,#207347,#1e2032)] text-white transition-all duration-500"
+    >
+      <!-- ================= HEADER ================= -->
+      <header
+        class="flex justify-between items-center backdrop-blur-md bg-white/10 px-6 py-4 rounded-2xl shadow-lg"
+      >
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg"
+          >
+            <i class="ri-gallery-line text-2xl text-white"></i>
+          </div>
+          <h1 class="text-2xl font-extrabold tracking-wide">PixelNest</h1>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button
+          id="themeToggle"
+          class="text-2xl cursor-pointer hover:scale-105 transition"
+        >
+          <i class="ri-moon-line"></i>
+        </button>
+      </header>
+
+      <!-- ================= HERO SECTION ================= -->
+      <section class="grid md:grid-cols-2 gap-10 items-center">
+        <!-- Text -->
+        <div class="animate__animated animate__fadeInLeft">
+          <h2 class="text-4xl md:text-6xl font-extrabold leading-tight">
+            Discover Stunning
+            <span class="text-emerald-400">Pixel Moments</span>
+          </h2>
+
+          <p class="mt-5 text-lg text-gray-300 spacing-wide">
+            Explore high-quality visuals powered by modern APIs. Search,
+            discover, and download professional imagery with a clean and
+            powerful interface.
+          </p>
+        </div>
+
+        <!-- Images -->
+        <div
+          class="hidden md:grid grid-cols-3 gap-4 animate__animated animate__fadeInRight"
+        >
+          <div class="overflow-hidden rounded-2xl">
+            <img
+              src="./images/lion.jpg"
+              class="object-cover h-40 shadow-xl hover:scale-105 transition duration-500"
+            />
+          </div>
+          <div class="overflow-hidden rounded-2xl">
+            <img
+              src="./images/flower.jpeg"
+              class="rounded-2xl object-cover h-40 shadow-xl hover:scale-105 transition duration-500"
+            />
+          </div>
+
+          <div class="overflow-hidden rounded-2xl">
+            <img
+              src="./images/car.jpg"
+              class="rounded-2xl w-full object-cover h-40 shadow-xl hover:scale-105 transition duration-500"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SEARCH BAR ================= -->
+      <section class="flex justify-center">
+        <div class="w-full md:w-2/3 relative">
+          <input
+            id="search"
+            type="text"
+            placeholder="Search stunning images..."
+            class="w-full py-4 pl-14 pr-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 focus:outline-none focus:ring-2 focus:ring-emerald-400 placeholder-gray-300"
+          />
+
+          <i
+            class="ri-search-line absolute left-5 top-1/2 -translate-y-1/2 text-xl text-gray-300"
+          ></i>
+        </div>
+      </section>
+
+      <!-- ================= IMAGE GRID ================= -->
+      <section>
+        <div
+          id="photosContainer"
+          class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 text-center"
+        ></div>
+        <button
+          id="loadBtn"
+          class="flex items-center gap-2 px-6 py-3 hover:bg-emerald-500 text-md cursor-pointer rounded-3xl bg-emerald-600 transition shadow-lg mt-10 block mx-auto text-white "
+        >
+          Load More
+        </button>
+      </section>
+    </div>
+  </body>
+</html>
