@@ -1,0 +1,25 @@
+
+/* Keys */
+.hljs-attr {
+  color: #9cdcfe; /* blue */
+}
+
+/* Strings */
+.hljs-string {
+  color: #ce9178; /* orange */
+}
+
+/* Numbers */
+.hljs-number {
+  color: #b5cea8; /* green */
+}
+
+/* Booleans */
+.hljs-literal {
+  color: #569cd6;
+}
+
+/* Null */
+.hljs-keyword {
+  color: #569cd6;
+}

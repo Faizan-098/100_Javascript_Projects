@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dummy Json Data</title>
+    <!-- Tailwind Css -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Remix Icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+      integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Daisy Ui -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Highlight Json -->
+    <!-- CSS Theme -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+    />
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Script -->
+    <script type="module" defer src="./app.js"></script>
+    
+    <!-- Custom highlight -->
+    <link rel="stylesheet" href="highlight.css">
+  </head>
+  <body>
+    <!-- Main -->
+    <div class="min-h-screen flex flex-col gap-5 bg-[#061223] py-8 px-5">
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row gap-3 justify-between">
+        <!-- Intro -->
+        <div class="max-w-[800px]">
+          <h1
+            class="text-3xl md:text-4xl font-extrabold text-[#F8FAFC] tracking-wide"
+          >
+            Mockify — Premium Dev Tool
+          </h1>
+          <p class="text-gray-300 tracking-wide">
+            Generate up to 100 realistic JSON records for development, seeding
+            databases, or API testing — with MongoDB-ready ObjectId & $date
+            support
+          </p>
+        </div>
+
+        <!-- Data-info -->
+        <div
+          class="h-fit w-fit border border-[#F8FAFC] font-semibold rounded-xl py-2 px-3"
+        >
+          <h3 class="text-[#F8FAFC]">Payments</h3>
+          <p class="text-gray-300 tracking-wide text-sm">
+            <span id="itemsCount">1</span> items •
+            <span id="displayDate"> 00:00:00 AM</span>
+          </p>
+        </div>
+      </div>
+      <!-- Cards -->
+      <div class="flex gap-5 flex-col md:flex-row">
+        <!-- Form -->
+        <div
+          class="card bg-base-100 flex-1 shadow-sm bg-[#0F172A] border border-gray-700 shadow-lg"
+        >
+          <div class="card-body text-white space-y-3">
+            <!-- Select -->
+            <div class="flex flex-col gap-1 font-semibold text-[16px]">
+              <label for="selectInp">Data Type</label>
+              <select
+                id="selectInp"
+                class="select w-full select-md outline-none text-[#111]"
+              >
+                <option selected value="users">Users</option>
+                <option value="companies">Companies</option>
+                <option value="jobs">Jobs</option>
+                <option value="products">Products</option>
+                <option value="orders">Orders</option>
+                <option value="posts">Blog/Post</option>
+                <option value="comments">Comments</option>
+                <option value="chats">Chats</option>
+                <option value="notifications">Notifications</option>
+              </select>
+            </div>
+
+            <!-- Input -->
+            <div class="flex flex-col gap-1 font-semibold text-[16px]">
+              <label for="number">Number of items (max 100)</label>
+              <input
+                id="numberInp"
+                value="2"
+                type="number"
+                min="1"
+                max="100"
+                placeholder="Enter Length Of Data"
+                class="text-white input bg-[#061223] border border-gray-700 outline-none input-md w-full"
+              />
+            </div>
+
+            <!-- Rang -->
+            <div class="flex flex-col gap-1 font-semibold text-[16px]">
+              <label for="rangInp"
+                >Set how many items to generate (1–100)</label
+              >
+              <input
+                id="rangInp"
+                type="range"
+                min="0"
+                max="100"
+                value="2"
+                class="range w-full text-blue-300 [--range-bg:white] [--range-thumb:#061223] [--range-fill:0]"
+              />
+            </div>
+
+            <!-- Generate -->
+            <button
+              id="generateBtn"
+              class="border-none bg-gradient-to-r from-violet-700 via-blue-400 to-violet-700 rounded-lg py-2 text-md font-semibold tracking-wide cursor-pointer"
+            >
+              Generate
+            </button>
+          </div>
+        </div>
+
+        <!-- Json-Data -->
+        <div
+          class="card bg-base-100 flex-1 shadow-sm bg-[#0F172A] border border-gray-700 shadow-lg"
+        >
+          <div class="card-body text-white space-y-3">
+            <!-- Header -->
+            <div class="flex justify-between gap-1">
+              <h1 class="text-[#F8FAFC] text-xl font-semibold">
+                Payload Preview
+              </h1>
+
+              <!-- Actions -->
+              <div class="flex gap-3">
+                <button
+                  id="copyBtn"
+                  class="flex gap-1 md:border border-white md:px-3 py-2 rounded-md"
+                >
+                  <i
+                    class="ri-file-copy-line text-lg md:text-sm cursor-pointer"
+                  ></i>
+                  <span class="hidden md:flex">Copy</span>
+                </button>
+                <button
+                  id="downloadBtn"
+                  class="flex gap-1 md:border border-white md:px-3 cursor-pointer py-2 rounded-md"
+                >
+                  <i class="ri-download-cloud-line text-lg md:text-sm"></i
+                  ><span class="hidden md:flex">Download</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Json -->
+            <pre
+              id="displayJson"
+              class="json w-full p-3 border border-white/90  rounded-lg overflow-y-auto max-h-[350px] min-h-[340px]"
+            >
+            </pre>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>TaskFlow Planner</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* background gradient */
+
+      body {
+        font-family: "Inter", sans-serif;
+
+        background:
+          radial-gradient(
+            circle at 10% 20%,
+            rgba(99, 102, 241, 0.15),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 90% 80%,
+            rgba(168, 85, 247, 0.15),
+            transparent 30%
+          ),
+          linear-gradient(180deg, #f8fafc, #eef2ff);
+      }
+
+      /* glass effect */
+
+      .glass {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      /* smooth hover */
+
+      .card {
+        transition: all 0.25s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      }
+
+      /* glow gradient border */
+
+      .gradient-border {
+        position: relative;
+      }
+
+      .gradient-border:before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+
+
+      .radial-progress {
+        transition: all 0.6s ease;
+      }
+    </style>
+
+    <!-- script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="./app.js" defer></script>
+  </head>
+
+  <body class="min-h-screen font-[Inter]">
+    <!-- MODAL -->
+    <dialog id="my_modal_3" class="modal">
+      <div class="modal-box">
+        <form method="dialog">
+          <button
+            class="btn btn-sm btn-circle text-white border-none bg-gradient-to-r from-rose-500 via-red-500 to-pink-500 shadow-md absolute right-2 top-2"
+          >
+            ✕
+          </button>
+        </form>
+
+        <!-- Form  -->
+        <form id="form">
+          <h3 class="text-lg font-bold">Add Task!</h3>
+          <!-- Title -->
+          <fieldset class="fieldset w-full mt-3">
+            <label class="label">Title</label>
+            <input
+              id="title"
+              type="text"
+              class="input validator w-full border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              placeholder="Enter task title"
+              required
+            />
+            <p class="validator-hint hidden">Required</p>
+          </fieldset>
+
+          <!-- Description -->
+          <fieldset class="fieldset w-full mt3">
+            <label class="label">Description</label>
+            <input
+              id="desc"
+              type="text"
+              class="input validator w-full border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              placeholder="Enter task description"
+              required
+            />
+            <p class="validator-hint hidden">Required</p>
+          </fieldset>
+
+          <!-- Select -->
+
+          <fieldset>
+            <label class="label">Priority</label>
+            <select id="priority" class="select select-bordered w-full">
+              <option disabled selected>Select priority</option>
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+          </fieldset>
+
+          <button
+            class="btn mt-3 w-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white shadow-md"
+            type="submit"
+          >
+            Submit form
+          </button>
+        </form>
+      </div>
+    </dialog>
+
+    <!-- HEADER -->
+
+    <header class="glass border-b sticky top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-3 md:px-6 py-4 flex justify-between items-center"
+      >
+        <!-- LOGO -->
+
+        <div class="flex items-center gap-2">
+          <div
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white shadow-md"
+          >
+            <i class="ri-lightbulb-flash-line text-xl"></i>
+          </div>
+
+          <h1
+            class="text-xl md:text-2xl tracking-wide font-bold text-slate-700"
+          >
+            TaskFlow
+          </h1>
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="flex flex-row items-center gap-2 md:gap-4">
+          <div
+            class="hidden md:flex items-center rounded-md px-3 h-[30px] text-sm text-white bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 shadow"
+          >
+            <p id="timer">02:20:50 AM</p>
+          </div>
+
+          <button
+            onclick="my_modal_3.showModal()"
+            class="btn btn-sm text-white border-none bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 shadow-md"
+          >
+            <i class="ri-add-line"></i>
+            Add <span class="hidden md:block">Task</span>
+          </button>
+
+          <button
+            onclick="deleteAllTasks()"
+            class="btn btn-sm text-white border-none bg-gradient-to-r from-rose-500 via-red-500 to-pink-500 shadow-md"
+          >
+            <i class="ri-delete-bin-line"></i>
+            <span class="hidden md:block">Delete</span> All
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- DASHBOARD STATS -->
+
+    <section class="max-w-7xl mx-auto px-3 md:px-6 py-8">
+      <div class="grid md:grid-cols-5 gap-6">
+        <!-- TASK COUNTERS -->
+
+        <div class="grid col-span-2 sm:grid-cols-2 gap-4">
+          <!-- TOTAL -->
+
+          <div class="card glass gradient-border shadow-sm">
+            <div class="card-body p-4">
+              <div class="flex justify-between items-center">
+                <div>
+                  <p class="text-sm text-slate-500">Total Tasks</p>
+                  <h2 id="totalCount" class="text-2xl font-bold">24</h2>
+                </div>
+
+                <div
+                  class="w-9 h-9 rounded-lg flex items-center justify-center bg-purple-100 text-purple-500"
+                >
+                  <i class="ri-stack-line"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PENDING -->
+
+          <div class="card glass gradient-border shadow-sm">
+            <div class="card-body p-4">
+              <div class="flex justify-between items-center">
+                <div>
+                  <p class="text-sm text-slate-500">Pending</p>
+                  <h2
+                    id="pendingCount"
+                    class="text-2xl font-bold text-yellow-500"
+                  >
+                    10
+                  </h2>
+                </div>
+
+                <div
+                  class="w-9 h-9 rounded-lg flex items-center justify-center bg-yellow-100 text-yellow-500"
+                >
+                  <i class="ri-time-line"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- IN PROGRESS -->
+
+          <div class="card glass gradient-border shadow-sm">
+            <div class="card-body p-4">
+              <div class="flex justify-between items-center">
+                <div>
+                  <p class="text-sm text-slate-500">In Progress</p>
+                  <h2
+                    id="progressCount"
+                    class="text-2xl font-bold text-blue-500"
+                  >
+                    6
+                  </h2>
+                </div>
+
+                <div
+                  class="w-9 h-9 rounded-lg flex items-center justify-center bg-blue-100 text-blue-500"
+                >
+                  <i class="ri-loader-4-line"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMPLETED -->
+
+          <div class="card glass gradient-border shadow-sm">
+            <div class="card-body p-4">
+              <div class="flex justify-between items-center">
+                <div>
+                  <p class="text-sm text-slate-500">Completed</p>
+                  <h2
+                    id="completedCount"
+                    class="text-2xl font-bold text-green-500"
+                  >
+                    8
+                  </h2>
+                </div>
+
+                <div
+                  class="w-9 h-9 rounded-lg flex items-center justify-center bg-green-100 text-green-500"
+                >
+                  <i class="ri-checkbox-circle-line"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHART -->
+
+        <div class="card col-span-2 glass gradient-border shadow-sm">
+          <div class="card-body">
+            <div class="flex justify-between items-center mb-3">
+              <h2 class="font-semibold">Task Progress</h2>
+
+              <span
+                class="badge py-3 text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500"
+              >
+                Weekly
+              </span>
+            </div>
+
+            <div class="h-30 relative">
+              <canvas id="taskChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- RATIO -->
+
+        <div
+          class="card h-full flex items-center justify-center glass gradient-border shadow-sm"
+        >
+          <div class="flex flex-col items-center gap-2">
+            <div
+              id="completionCircle"
+              class="radial-progress flex flex-col items-center justify-center"
+              style="--value: 0; --size: 150px; --thickness:10px;"
+            >
+              <span
+                id="completionPercent"
+                class="text-2xl font-bold text-slate-700"
+              >
+                0%
+              </span>
+
+              <p class="text-xs text-slate-500 tracking-wide">Completed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KANBAN BOARD -->
+
+    <section class="max-w-7xl mx-auto px-3 md:px-6 pb-12">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- HIGH PRIORITY -->
+
+        <div class="card glass gradient-border shadow-sm">
+          <div class="card-body p-4 md:p-6">
+            <div class="flex justify-between items-center mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+
+                <h2 class="font-semibold">High Priority</h2>
+              </div>
+
+              <select
+                onchange="filterTask('High', this.value.toLowerCase())"
+                class="select md:w-[150px] w-[130px] h-[30px] select-xs select-bordered"
+              >
+                <option>All</option>
+                <option>Pending</option>
+                <option>In Progress</option>
+                <option>Completed</option>
+              </select>
+            </div>
+
+            <!-- TASK CONTAINER -->
+            <div
+              id="high-container"
+              class="flex flex-col gap-3 overflow-x-auto max-h-[335px]"
+            >
+              <div
+                class="card bg-white/70 border hover:shadow-md transition mt-3 backdrop-blur"
+              >
+                <div class="card-body">
+                  <h3 class="font-semibold">Design Dashboard UI</h3>
+
+                  <p class="text-sm text-slate-500">
+                    Create modern layout for task planner dashboard.
+                  </p>
+
+                  <div class="flex justify-between items-center mt-3">
+                    <select
+                      class="select select-xs w-[100px] h-[30px] select-bordered"
+                    >
+                      <option>Pending</option>
+                      <option>In Progress</option>
+                      <option>Completed</option>
+                    </select>
+
+                    <button
+                      class="btn btn-sm text-white border-none bg-gradient-to-br from-rose-500 via-red-400 to-rose-500 shadow-sm"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MEDIUM PRIORITY -->
+
+        <div class="card glass gradient-border shadow-sm">
+          <div class="card-body p-4 md:p-6">
+            <div class="flex justify-between items-center mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+
+                <h2 class="font-semibold">Medium Priority</h2>
+              </div>
+
+              <select
+                onchange="filterTask('Medium', this.value.toLowerCase())"
+                class="select w-[130px] md:w-[150px] h-[30px] select-xs select-bordered"
+              >
+                <option>All</option>
+                <option>Pending</option>
+                <option>In Progress</option>
+                <option>Completed</option>
+              </select>
+            </div>
+
+            <!-- TASK CONTAINER -->
+            <div
+              id="medium-container"
+              class="flex flex-col gap-3 overflow-x-auto max-h-[335px]"
+            >
+              <div
+                class="card bg-white/70 border hover:shadow-md transition mt-3 backdrop-blur"
+              >
+                <div class="card-body p-4">
+                  <h3 class="font-semibold">Design Dashboard UI</h3>
+
+                  <p class="text-sm text-slate-500">
+                    Create modern layout for task planner dashboard.
+                  </p>
+
+                  <div class="flex justify-between items-center mt-3">
+                    <select
+                      class="select select-xs w-[100px] h-[30px] select-bordered"
+                    >
+                      <option>Pending</option>
+                      <option>In Progress</option>
+                      <option>Completed</option>
+                    </select>
+
+                    <button
+                      class="btn btn-sm text-white border-none bg-gradient-to-br from-rose-500 via-red-400 to-rose-500 shadow-sm"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOW PRIORITY -->
+
+        <div class="card glass gradient-border shadow-sm">
+          <div class="card-body p-4 md:p-6">
+            <div class="flex justify-between items-center mb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+
+                <h2 class="font-semibold">Low Priority</h2>
+              </div>
+
+              <select
+                onchange="filterTask('Low', this.value.toLowerCase())"
+                class="select md:w-[150px] w-[130px] h-[30px] select-xs select-bordered"
+              >
+                <option>All</option>
+                <option>Pending</option>
+                <option>In Progress</option>
+                <option>Completed</option>
+              </select>
+            </div>
+
+            <!-- TASK CONTAINER -->
+            <div
+              id="low-container"
+              class="flex flex-col gap-3 overflow-x-auto max-h-[335px]"
+            >
+              <div
+                class="card bg-white/70 border hover:shadow-md transition mt-3 backdrop-blur"
+              >
+                <div class="card-body p-4">
+                  <h3 class="font-semibold">Design Dashboard UI</h3>
+
+                  <p class="text-sm text-slate-500">
+                    Create modern layout for task planner dashboard.
+                  </p>
+
+                  <div class="flex justify-between items-center mt-3">
+                    <select
+                      class="select select-xs w-[100px] h-[30px] select-bordered"
+                    >
+                      <option>Pending</option>
+                      <option>In Progress</option>
+                      <option selected>Completed</option>
+                    </select>
+
+                    <button
+                      class="btn btn-sm text-white border-none bg-gradient-to-br from-rose-500 via-red-400 to-rose-500 shadow-sm"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

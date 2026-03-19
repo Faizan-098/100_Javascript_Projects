@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hiring Mine</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer  src="../JS/signup.js"></script>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <img src="./img/Hiring Mine Logo-453a72d3.png" alt="" />
+      <p>light mood</p>
+    </header>
+
+    <!-- SIGNUP-CONTAINER -->
+    <main class="login-container">
+      <!-- IMAGE -->
+      <div class="left-side">
+        <img src="./img/1-0c5d77b5.png" alt="" />
+      </div>
+    
+      <!-- SIGN FORM -->
+      <div class="right-side">
+        <div class="info">
+          <h1>Welcome Back!</h1>
+          <p>Better jobs are waiting. Sign in and find your next move.</p>
+        </div>
+
+        <div class="btns">
+          <button>
+            <img src="./img/download.png" alt="" />sign in with google
+          </button>
+          <button>sign in witn github</button>
+        </div>
+
+        <!-- FORM -->
+        <form 
+        id="signupForm"
+        >
+          <div class="input-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" placeholder="Enter First Name" />
+          </div>
+           
+         <div class="input-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" placeholder="Enter Last Name" />
+          </div>
+
+          <div class="input-group">
+            <label for="userName">User Name</label>
+            <input type="text" id="userName" placeholder="Enter Username" />
+          </div>
+
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input required type="email" id="email" placeholder="Enter your email" />
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+            />
+          </div>
+
+           <div class="input-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Enter your password"
+            />
+          </div>
+
+          <button  type="submit">Sign Up</button>
+         <a href="../signin.html">Login</a>
+      </div>
+    </main>
+  </body>
+</html>

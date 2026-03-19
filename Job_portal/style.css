@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    height: 100vh;
+}
+
+header{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 80px;
+    
+}
+
+header img{
+    width: 160px;
+}
+
+.left-side img{
+    width: 320px;
+}
+.login-container{
+    display:flex ;
+    border: 1px solid #000;
+}
+
+.info h1{
+
+}
